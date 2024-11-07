@@ -1,0 +1,208 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.8">
+  <POU Name="FB_Collisions" Id="{461ab279-73c2-4ad7-a25a-161aa892a53d}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Collisions
+
+VAR
+	buffer : REAL := 5.0;
+	circleSpacing : REAL := 5.0;
+	collisionArray : ARRAY[0..29] OF BOOL;
+	circlesArray : ARRAY[0..29] OF stCircle;
+//	circlesArray2D : ARRAY[0..5, 0..4] OF stCircle;
+//	collisionArray2D : ARRAY[0..5, 0..4] OF BOOL;
+// 	numCircles : INT := 29;
+	
+END_VAR
+
+VAR_INPUT
+	circle : stCircle;
+	rect : stRect;
+END_VAR
+
+VAR CONSTANT
+	maxObjects : INT := 300;
+	numCircles : INT := 29;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[]]></ST>
+    </Implementation>
+    <Method Name="getCollisions" Id="{6974db9e-282f-40e4-8460-a07689ea46e2}">
+      <Declaration><![CDATA[METHOD getCollisions : BOOL
+
+VAR_IN_OUT
+//	collisionArray2D : ARRAY[0..5, 0..4] OF BOOL;
+	collisionArray : ARRAY[0..29] OF BOOL;
+	rects : ARRAY[0..maxObjects] OF stRect;
+	
+END_VAR
+
+VAR
+	fbCollision : FB_Collisions;
+	minIndex1, maxIndex1 : INT;
+//	minCol, maxCol, minRow, maxRow : INT;
+	i, j : INT;
+	col, row : INT;
+	
+END_VAR]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FOR j := 0 TO (maxObjects - 1) DO
+	fbCollision.getMinMaxIndices(rect := rects[j], minIndex => minIndex1, maxIndex => maxIndex1);
+	
+	FOR i := minIndex1 TO maxIndex1 DO
+		IF NOT collisionArray[i] THEN 
+			collisionArray[i] := fbCollision.isColliding(circle := circlesArray[i], rect:= rects[j]);
+		END_IF
+	END_FOR
+END_FOR
+
+//FOR j := 0 TO GVL_collision.numRects DO
+//	fbCollision.getMinMaxIndices(rect := GVL_collision.rects[j], minRowIndex => minRow, maxRowIndex => maxRow, minColIndex => minCol, maxColIndex => maxCol);
+//	FOR col := minCol TO maxCol DO
+//		FOR row := minRow TO maxRow DO
+//			IF NOT collisionArray2D[col, row] THEN
+//				collisionArray2D[col, row] := fbCollision.isColliding(circle := circlesArray2D[col, row], rect := GVL_collision.rects[j]);
+//			END_IF
+//		END_FOR
+//	END_FOR
+//END_FOR]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="getMinMaxIndices" Id="{ef318a78-fa08-4cdb-8ce3-73cadd251911}">
+      <Declaration><![CDATA[METHOD getMinMaxIndices : INT
+VAR_INPUT
+	rect : stRect;
+END_VAR
+
+VAR_OUTPUT
+	minIndex, maxIndex : INT;
+//	minRowIndex, maxRowIndex : INT;
+//	minColIndex, maxColIndex : INT;
+END_VAR
+
+VAR
+	i : INT;
+	rectMinX, rectMaxX : REAL;
+//	rectMinY, rectMaxY : REAL;
+//	buffer : REAL := GVL_collision.buffer;
+//	circleSpacing : REAL := GVL_collision.circleSpacing;
+//	numCircles : INT := GVL_collision.numCircles;
+//	minRowIndex, maxRowIndex : REAL;
+//	minColIndex, maxColIndex : REAL;
+END_VAR
+
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[rectMinX := rect.x - buffer;
+rectMaxX := rect.x + rect.width + buffer;
+//rectMinY := rect.y - buffer;
+//rectMaxY := rect.y + rect.height + buffer;
+
+minIndex := MAX(0, REAL_TO_INT(TRUNC(rectMinX / circleSpacing)));
+maxIndex := MIN(numCircles, REAL_TO_INT(TRUNC(rectMaxX / circleSpacing)+1));
+
+
+//minRowIndex := MAX(0, REAL_TO_INT(TRUNC(rectMinY / circleSpacing * 2)));
+//maxRowIndex := MIN(4, REAL_TO_INT(TRUNC(rectMaxY / circleSpacing * 2)));
+
+//minColIndex := MAX(0, REAL_TO_INT(TRUNC(rectMinX / circleSpacing)));
+//maxColIndex := MIN(5, REAL_TO_INT(TRUNC(rectMaxX / circleSpacing)));
+
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="initCircles" Id="{5ab7e26a-56f7-4398-aa82-d0b7a7dcf5d7}">
+      <Declaration><![CDATA[METHOD initCircles
+
+VAR
+	i : INT;
+	row, col : INT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[FOR i := 0 TO numCircles DO
+	circlesArray[i].x := REAL_TO_INT(i * circleSpacing);
+	circlesArray[i].y := REAL_TO_INT((i MOD 5) * circleSpacing*2);
+	circlesArray[i].radius := 2.0;
+END_FOR
+//FOR col := 0 TO 5 DO
+//	FOR row := 0 TO 4 DO
+//		circlesArray2D[col, row].x := col * 25 + row * circleSpacing;
+//		circlesArray2D[col, row].y := row * 10;
+//		circlesArray2D[col, row].radius := 2.0;
+//	END_FOR
+//END_FOR
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="isColliding" Id="{b62c9e91-48e7-4ea4-a13e-529490c18a0e}">
+      <Declaration><![CDATA[METHOD isColliding : BOOL
+VAR_INPUT
+	circle : stCircle;
+	rect : stRect;
+END_VAR
+
+VAR
+	closestX, closestY : REAL;
+	dx, dy, distanceSquared : REAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[closestX := MAX(rect.x, MIN(circle.x, rect.x + rect.width));
+closestY := MAX(rect.y, MIN(circle.y, rect.y + rect.height));
+
+dx := circle.x - closestX;
+dy := circle.y - closestY;
+
+distanceSquared := (dx * dx) + (dy * dy);
+IsColliding := distanceSquared <= (circle.radius * circle.radius);]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="FB_Collisions">
+      <LineId Id="9" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Collisions.getCollisions">
+      <LineId Id="62" Count="0" />
+      <LineId Id="90" Count="0" />
+      <LineId Id="65" Count="5" />
+      <LineId Id="45" Count="0" />
+      <LineId Id="77" Count="0" />
+      <LineId Id="76" Count="0" />
+      <LineId Id="78" Count="0" />
+      <LineId Id="81" Count="0" />
+      <LineId Id="85" Count="1" />
+      <LineId Id="88" Count="1" />
+      <LineId Id="87" Count="0" />
+      <LineId Id="83" Count="0" />
+      <LineId Id="79" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Collisions.getMinMaxIndices">
+      <LineId Id="6" Count="1" />
+      <LineId Id="52" Count="1" />
+      <LineId Id="8" Count="1" />
+      <LineId Id="29" Count="0" />
+      <LineId Id="57" Count="0" />
+      <LineId Id="54" Count="2" />
+      <LineId Id="63" Count="0" />
+      <LineId Id="62" Count="0" />
+      <LineId Id="64" Count="0" />
+      <LineId Id="58" Count="0" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Collisions.initCircles">
+      <LineId Id="13" Count="3" />
+      <LineId Id="5" Count="0" />
+      <LineId Id="22" Count="0" />
+      <LineId Id="28" Count="0" />
+      <LineId Id="35" Count="0" />
+      <LineId Id="32" Count="1" />
+      <LineId Id="31" Count="0" />
+      <LineId Id="29" Count="0" />
+      <LineId Id="21" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Collisions.isColliding">
+      <LineId Id="6" Count="6" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.8">
+  <POU Name="MAIN" Id="{56430702-4f3b-488c-b8a0-85f48919f402}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	Profiler : PROFILER;
+	ProfilerResult : PROFILERSTRUCT;
+
+	fbCollision : FB_Collisions;
+	fbRects : FB_initRects;
+	bDone : BOOL := FALSE;
+	
+	collisionArray : ARRAY[0..29] OF BOOL;
+	
+	objectArray : ARRAY[ 0..maxObjects] OF stRect;
+	
+	bTriggerCppCode: BOOL := FALSE;
+END_VAR
+
+VAR CONSTANT
+	maxObjects : INT := 300;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[
+//Initialize Tines(circles) and Rectangles(objects/plants)
+fbCollision.initCircles();
+fbRects(rects := objectArray);
+
+//Start timer
+Profiler(START := TRUE, RESET := FALSE);
+IF NOT bDone THEN
+	bTriggerCppCode := TRUE; //Should trigger the Cpp code
+END_IF
+
+//Stop timer and publish results to view
+Profiler(START := FALSE);
+ProfilerResult := Profiler.DATA;
+
+bDone := TRUE;
+
+]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="262" Count="0" />
+      <LineId Id="222" Count="1" />
+      <LineId Id="169" Count="0" />
+      <LineId Id="263" Count="0" />
+      <LineId Id="65" Count="0" />
+      <LineId Id="267" Count="3" />
+      <LineId Id="265" Count="0" />
+      <LineId Id="258" Count="1" />
+      <LineId Id="253" Count="0" />
+      <LineId Id="252" Count="0" />
+      <LineId Id="72" Count="0" />
+      <LineId Id="256" Count="0" />
+      <LineId Id="64" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

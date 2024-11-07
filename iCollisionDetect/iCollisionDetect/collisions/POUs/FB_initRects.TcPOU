@@ -1,0 +1,941 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4026.8">
+  <POU Name="FB_initRects" Id="{e14814c7-d9fc-4a26-a167-3686f0f179df}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_initRects
+
+VAR_IN_OUT
+	rects : ARRAY[0..maxObjects] OF stRect;
+END_VAR
+
+VAR CONSTANT
+	maxObjects : INT := 300;
+END_VAR
+//VAR_INPUT
+////	numRects : INT;
+//END_VAR
+
+//VAR_OUTPUT
+////	rects : ARRAY[0..199] OF stRect;
+//END_VAR
+
+VAR
+// 	j : INT := 0;
+// 	sFilePath : STRING(255) := 'C:\Users\sabah\BHF\TcXaeShell\rectangles.csv';
+// 	fbFileOpen : FB_FileOpen := (sPathName := sFilePath, nMode := FOPEN_MODEREAD OR FOPEN_MODEPLUS);
+// 	fbFileGets : FB_FileGets;
+// 	fbFileClose : FB_FileClose;
+// 	
+// 	eReadState : (FILE_OPEN_TRIG, FILE_OPEN, WAIT, READ_TRIG, READ, CLOSE, ERROR, DONE);
+// 	sLine : T_MaxString;
+// 	sLine1 : T_MaxString;
+// 
+// 	
+// 	sX, sY, sW, sH : STRING;
+// 	sLineArr : ARRAY[0..3] OF STRING(100);
+	
+
+	GVL_collision: INT;
+END_VAR
+
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[//CASE eReadState OF
+//	FILE_OPEN_TRIG : 
+//		fbFileOpen(bExecute := TRUE);
+//		eReadState := FILE_OPEN;
+	
+//	FILE_OPEN : 
+//		fbFileOpen(bExecute := FALSE);
+//		IF fbFileOpen.bError THEN
+//			eReadState := ERROR;
+//		ELSIF NOT fbFileOpen.bBusy AND fbFileOpen.hFile <> 0 THEN
+//			eReadState := WAIT;
+//		END_IF
+		
+//	WAIT:
+//		IF NOT fbFileGets.bBusy THEN
+//			eReadState := READ_TRIG;
+//		END_IF
+		
+//	READ_TRIG : 
+//		fbFileGets(bExecute := TRUE,
+//					hFile := fbFileOpen.hFile,
+//					sLine => sLine1);
+//		eReadState := READ;
+	
+//	READ :
+//		fbFileGets(bExecute := FALSE);
+////		sLine1 := '15,2,4,2$N';
+		
+//		IF sLine1 <> '' THEN
+//			sLineArr := F_SplitString(sInput := sLine1, sSplitChar := ',');
+//			rects[j].x := STRING_TO_REAL(sLineArr[0]);
+//			rects[j].y := STRING_TO_REAL(sLineArr[1]);
+//			rects[j].width := STRING_TO_REAL(sLineArr[2]);
+//			rects[j].height := STRING_TO_REAL(sLineArr[3]);
+//			j := j + 1;
+			
+//			IF fbFileGets.bEOF THEN
+//				eReadState := CLOSE;
+//			ELSE
+//				eReadState := WAIT;
+//			END_IF
+//		END_IF
+////		eReadState := DONE;
+		
+//	CLOSE:
+//		fbFileClose(hFile := fbFileOpen.hFile,
+//					bExecute := TRUE);
+//		eReadState := DONE;
+		
+//	ERROR:
+////	Do nothing (Haven't figured out the error handling sequency yet)
+	
+//	DONE:
+////	Do nothing
+	
+
+rects[0].x := 43;
+rects[0].y := 16;
+rects[0].width := 3;
+rects[0].height := 5;
+rects[1].x := 113;
+rects[1].y := 25;
+rects[1].width := 4;
+rects[1].height := 6;
+rects[2].x := 29;
+rects[2].y := 1;
+rects[2].width := 4;
+rects[2].height := 5;
+rects[3].x := 90;
+rects[3].y := 19;
+rects[3].width := 5;
+rects[3].height := 8;
+rects[4].x := 80;
+rects[4].y := 6;
+rects[4].width := 6;
+rects[4].height := 2;
+rects[5].x := 31;
+rects[5].y := 8;
+rects[5].width := 9;
+rects[5].height := 7;
+rects[6].x := 2;
+rects[6].y := 20;
+rects[6].width := 8;
+rects[6].height := 5;
+rects[7].x := 127;
+rects[7].y := 25;
+rects[7].width := 3;
+rects[7].height := 4;
+rects[8].x := 122;
+rects[8].y := 18;
+rects[8].width := 7;
+rects[8].height := 9;
+rects[9].x := 113;
+rects[9].y := 16;
+rects[9].width := 5;
+rects[9].height := 4;
+rects[10].x := 29;
+rects[10].y := 3;
+rects[10].width := 7;
+rects[10].height := 9;
+rects[11].x := 104;
+rects[11].y := 7;
+rects[11].width := 8;
+rects[11].height := 6;
+rects[12].x := 135;
+rects[12].y := 0;
+rects[12].width := 7;
+rects[12].height := 8;
+rects[13].x := 91;
+rects[13].y := 20;
+rects[13].width := 6;
+rects[13].height := 3;
+rects[14].x := 102;
+rects[14].y := 20;
+rects[14].width := 6;
+rects[14].height := 3;
+rects[15].x := 65;
+rects[15].y := 15;
+rects[15].width := 6;
+rects[15].height := 9;
+rects[16].x := 136;
+rects[16].y := 5;
+rects[16].width := 8;
+rects[16].height := 3;
+rects[17].x := 73;
+rects[17].y := 17;
+rects[17].width := 6;
+rects[17].height := 9;
+rects[18].x := 2;
+rects[18].y := 15;
+rects[18].width := 8;
+rects[18].height := 9;
+rects[19].x := 74;
+rects[19].y := 14;
+rects[19].width := 5;
+rects[19].height := 8;
+rects[20].x := 7;
+rects[20].y := 18;
+rects[20].width := 6;
+rects[20].height := 4;
+rects[21].x := 88;
+rects[21].y := 24;
+rects[21].width := 5;
+rects[21].height := 5;
+rects[22].x := 134;
+rects[22].y := 19;
+rects[22].width := 6;
+rects[22].height := 6;
+rects[23].x := 96;
+rects[23].y := 18;
+rects[23].width := 5;
+rects[23].height := 6;
+rects[24].x := 46;
+rects[24].y := 6;
+rects[24].width := 8;
+rects[24].height := 5;
+rects[25].x := 95;
+rects[25].y := 10;
+rects[25].width := 4;
+rects[25].height := 4;
+rects[26].x := 127;
+rects[26].y := 21;
+rects[26].width := 3;
+rects[26].height := 8;
+rects[27].x := 17;
+rects[27].y := 12;
+rects[27].width := 6;
+rects[27].height := 6;
+rects[28].x := 81;
+rects[28].y := 20;
+rects[28].width := 8;
+rects[28].height := 3;
+rects[29].x := 105;
+rects[29].y := 29;
+rects[29].width := 6;
+rects[29].height := 5;
+rects[30].x := 40;
+rects[30].y := 9;
+rects[30].width := 9;
+rects[30].height := 7;
+rects[31].x := 17;
+rects[31].y := 11;
+rects[31].width := 3;
+rects[31].height := 5;
+rects[32].x := 29;
+rects[32].y := 7;
+rects[32].width := 9;
+rects[32].height := 2;
+rects[33].x := 117;
+rects[33].y := 3;
+rects[33].width := 4;
+rects[33].height := 7;
+rects[34].x := 106;
+rects[34].y := 23;
+rects[34].width := 5;
+rects[34].height := 2;
+rects[35].x := 28;
+rects[35].y := 21;
+rects[35].width := 6;
+rects[35].height := 7;
+rects[36].x := 3;
+rects[36].y := 29;
+rects[36].width := 8;
+rects[36].height := 2;
+rects[37].x := 108;
+rects[37].y := 5;
+rects[37].width := 6;
+rects[37].height := 7;
+rects[38].x := 116;
+rects[38].y := 23;
+rects[38].width := 4;
+rects[38].height := 7;
+rects[39].x := 6;
+rects[39].y := 21;
+rects[39].width := 3;
+rects[39].height := 5;
+rects[40].x := 39;
+rects[40].y := 28;
+rects[40].width := 6;
+rects[40].height := 6;
+rects[41].x := 41;
+rects[41].y := 20;
+rects[41].width := 3;
+rects[41].height := 6;
+rects[42].x := 54;
+rects[42].y := 4;
+rects[42].width := 6;
+rects[42].height := 4;
+rects[43].x := 87;
+rects[43].y := 26;
+rects[43].width := 9;
+rects[43].height := 5;
+rects[44].x := 87;
+rects[44].y := 25;
+rects[44].width := 5;
+rects[44].height := 2;
+rects[45].x := 72;
+rects[45].y := 11;
+rects[45].width := 7;
+rects[45].height := 6;
+rects[46].x := 135;
+rects[46].y := 17;
+rects[46].width := 4;
+rects[46].height := 3;
+rects[47].x := 98;
+rects[47].y := 25;
+rects[47].width := 7;
+rects[47].height := 7;
+rects[48].x := 15;
+rects[48].y := 13;
+rects[48].width := 4;
+rects[48].height := 6;
+rects[49].x := 103;
+rects[49].y := 21;
+rects[49].width := 2;
+rects[49].height := 3;
+rects[50].x := 76;
+rects[50].y := 4;
+rects[50].width := 5;
+rects[50].height := 5;
+rects[51].x := 13;
+rects[51].y := 8;
+rects[51].width := 8;
+rects[51].height := 2;
+rects[52].x := 4;
+rects[52].y := 28;
+rects[52].width := 2;
+rects[52].height := 2;
+rects[53].x := 69;
+rects[53].y := 27;
+rects[53].width := 7;
+rects[53].height := 6;
+rects[54].x := 84;
+rects[54].y := 3;
+rects[54].width := 8;
+rects[54].height := 9;
+rects[55].x := 70;
+rects[55].y := 29;
+rects[55].width := 6;
+rects[55].height := 7;
+rects[56].x := 104;
+rects[56].y := 0;
+rects[56].width := 3;
+rects[56].height := 5;
+rects[57].x := 134;
+rects[57].y := 16;
+rects[57].width := 7;
+rects[57].height := 4;
+rects[58].x := 102;
+rects[58].y := 14;
+rects[58].width := 7;
+rects[58].height := 5;
+rects[59].x := 35;
+rects[59].y := 4;
+rects[59].width := 6;
+rects[59].height := 5;
+rects[60].x := 22;
+rects[60].y := 18;
+rects[60].width := 5;
+rects[60].height := 9;
+rects[61].x := 106;
+rects[61].y := 8;
+rects[61].width := 6;
+rects[61].height := 8;
+rects[62].x := 71;
+rects[62].y := 10;
+rects[62].width := 7;
+rects[62].height := 3;
+rects[63].x := 1;
+rects[63].y := 0;
+rects[63].width := 8;
+rects[63].height := 3;
+rects[64].x := 120;
+rects[64].y := 26;
+rects[64].width := 6;
+rects[64].height := 4;
+rects[65].x := 122;
+rects[65].y := 5;
+rects[65].width := 6;
+rects[65].height := 2;
+rects[66].x := 2;
+rects[66].y := 8;
+rects[66].width := 6;
+rects[66].height := 7;
+rects[67].x := 22;
+rects[67].y := 14;
+rects[67].width := 2;
+rects[67].height := 6;
+rects[68].x := 32;
+rects[68].y := 29;
+rects[68].width := 5;
+rects[68].height := 8;
+rects[69].x := 108;
+rects[69].y := 11;
+rects[69].width := 7;
+rects[69].height := 5;
+rects[70].x := 61;
+rects[70].y := 10;
+rects[70].width := 7;
+rects[70].height := 8;
+rects[71].x := 80;
+rects[71].y := 3;
+rects[71].width := 9;
+rects[71].height := 7;
+rects[72].x := 19;
+rects[72].y := 16;
+rects[72].width := 9;
+rects[72].height := 7;
+rects[73].x := 133;
+rects[73].y := 18;
+rects[73].width := 8;
+rects[73].height := 9;
+rects[74].x := 46;
+rects[74].y := 26;
+rects[74].width := 6;
+rects[74].height := 6;
+rects[75].x := 110;
+rects[75].y := 14;
+rects[75].width := 2;
+rects[75].height := 8;
+rects[76].x := 116;
+rects[76].y := 7;
+rects[76].width := 7;
+rects[76].height := 6;
+rects[77].x := 99;
+rects[77].y := 18;
+rects[77].width := 9;
+rects[77].height := 6;
+rects[78].x := 8;
+rects[78].y := 22;
+rects[78].width := 5;
+rects[78].height := 3;
+rects[79].x := 96;
+rects[79].y := 20;
+rects[79].width := 8;
+rects[79].height := 5;
+rects[80].x := 126;
+rects[80].y := 21;
+rects[80].width := 3;
+rects[80].height := 6;
+rects[81].x := 81;
+rects[81].y := 25;
+rects[81].width := 5;
+rects[81].height := 9;
+rects[82].x := 61;
+rects[82].y := 14;
+rects[82].width := 5;
+rects[82].height := 5;
+rects[83].x := 60;
+rects[83].y := 17;
+rects[83].width := 3;
+rects[83].height := 6;
+rects[84].x := 127;
+rects[84].y := 20;
+rects[84].width := 2;
+rects[84].height := 4;
+rects[85].x := 40;
+rects[85].y := 4;
+rects[85].width := 8;
+rects[85].height := 7;
+rects[86].x := 96;
+rects[86].y := 1;
+rects[86].width := 8;
+rects[86].height := 6;
+rects[87].x := 12;
+rects[87].y := 12;
+rects[87].width := 2;
+rects[87].height := 4;
+rects[88].x := 125;
+rects[88].y := 15;
+rects[88].width := 8;
+rects[88].height := 5;
+rects[89].x := 60;
+rects[89].y := 2;
+rects[89].width := 4;
+rects[89].height := 3;
+rects[90].x := 58;
+rects[90].y := 20;
+rects[90].width := 6;
+rects[90].height := 8;
+rects[91].x := 129;
+rects[91].y := 21;
+rects[91].width := 5;
+rects[91].height := 2;
+rects[92].x := 12;
+rects[92].y := 25;
+rects[92].width := 4;
+rects[92].height := 6;
+rects[93].x := 79;
+rects[93].y := 29;
+rects[93].width := 3;
+rects[93].height := 2;
+rects[94].x := 70;
+rects[94].y := 25;
+rects[94].width := 6;
+rects[94].height := 8;
+rects[95].x := 39;
+rects[95].y := 4;
+rects[95].width := 3;
+rects[95].height := 7;
+rects[96].x := 101;
+rects[96].y := 7;
+rects[96].width := 2;
+rects[96].height := 7;
+rects[97].x := 121;
+rects[97].y := 14;
+rects[97].width := 8;
+rects[97].height := 5;
+rects[98].x := 84;
+rects[98].y := 22;
+rects[98].width := 4;
+rects[98].height := 4;
+rects[99].x := 4;
+rects[99].y := 1;
+rects[99].width := 4;
+rects[99].height := 6;
+rects[100].x := 8;
+rects[100].y := 19;
+rects[100].width := 2;
+rects[100].height := 6;
+rects[101].x := 98;
+rects[101].y := 18;
+rects[101].width := 6;
+rects[101].height := 2;
+rects[102].x := 73;
+rects[102].y := 8;
+rects[102].width := 9;
+rects[102].height := 7;
+rects[103].x := 133;
+rects[103].y := 8;
+rects[103].width := 4;
+rects[103].height := 4;
+rects[104].x := 67;
+rects[104].y := 6;
+rects[104].width := 2;
+rects[104].height := 3;
+rects[105].x := 40;
+rects[105].y := 6;
+rects[105].width := 6;
+rects[105].height := 7;
+rects[106].x := 89;
+rects[106].y := 10;
+rects[106].width := 9;
+rects[106].height := 3;
+rects[107].x := 83;
+rects[107].y := 17;
+rects[107].width := 7;
+rects[107].height := 6;
+rects[108].x := 26;
+rects[108].y := 15;
+rects[108].width := 2;
+rects[108].height := 6;
+rects[109].x := 35;
+rects[109].y := 8;
+rects[109].width := 7;
+rects[109].height := 3;
+rects[110].x := 16;
+rects[110].y := 0;
+rects[110].width := 8;
+rects[110].height := 3;
+rects[111].x := 120;
+rects[111].y := 14;
+rects[111].width := 6;
+rects[111].height := 5;
+rects[112].x := 90;
+rects[112].y := 8;
+rects[112].width := 6;
+rects[112].height := 8;
+rects[113].x := 14;
+rects[113].y := 27;
+rects[113].width := 5;
+rects[113].height := 5;
+rects[114].x := 59;
+rects[114].y := 2;
+rects[114].width := 6;
+rects[114].height := 5;
+rects[115].x := 100;
+rects[115].y := 11;
+rects[115].width := 9;
+rects[115].height := 4;
+rects[116].x := 19;
+rects[116].y := 11;
+rects[116].width := 9;
+rects[116].height := 8;
+rects[117].x := 79;
+rects[117].y := 2;
+rects[117].width := 9;
+rects[117].height := 9;
+rects[118].x := 64;
+rects[118].y := 29;
+rects[118].width := 3;
+rects[118].height := 6;
+rects[119].x := 105;
+rects[119].y := 19;
+rects[119].width := 9;
+rects[119].height := 9;
+rects[120].x := 117;
+rects[120].y := 10;
+rects[120].width := 8;
+rects[120].height := 5;
+rects[121].x := 129;
+rects[121].y := 9;
+rects[121].width := 9;
+rects[121].height := 6;
+rects[122].x := 12;
+rects[122].y := 5;
+rects[122].width := 9;
+rects[122].height := 2;
+rects[123].x := 109;
+rects[123].y := 10;
+rects[123].width := 4;
+rects[123].height := 6;
+rects[124].x := 61;
+rects[124].y := 9;
+rects[124].width := 4;
+rects[124].height := 2;
+rects[125].x := 21;
+rects[125].y := 12;
+rects[125].width := 2;
+rects[125].height := 7;
+rects[126].x := 103;
+rects[126].y := 11;
+rects[126].width := 3;
+rects[126].height := 7;
+rects[127].x := 110;
+rects[127].y := 15;
+rects[127].width := 6;
+rects[127].height := 9;
+rects[128].x := 37;
+rects[128].y := 24;
+rects[128].width := 4;
+rects[128].height := 4;
+rects[129].x := 124;
+rects[129].y := 17;
+rects[129].width := 8;
+rects[129].height := 2;
+rects[130].x := 105;
+rects[130].y := 8;
+rects[130].width := 2;
+rects[130].height := 4;
+rects[131].x := 40;
+rects[131].y := 6;
+rects[131].width := 8;
+rects[131].height := 4;
+rects[132].x := 116;
+rects[132].y := 2;
+rects[132].width := 4;
+rects[132].height := 3;
+rects[133].x := 126;
+rects[133].y := 10;
+rects[133].width := 9;
+rects[133].height := 4;
+rects[134].x := 111;
+rects[134].y := 0;
+rects[134].width := 9;
+rects[134].height := 3;
+rects[135].x := 97;
+rects[135].y := 7;
+rects[135].width := 2;
+rects[135].height := 8;
+rects[136].x := 94;
+rects[136].y := 25;
+rects[136].width := 2;
+rects[136].height := 4;
+rects[137].x := 72;
+rects[137].y := 9;
+rects[137].width := 4;
+rects[137].height := 3;
+rects[138].x := 129;
+rects[138].y := 14;
+rects[138].width := 5;
+rects[138].height := 3;
+rects[139].x := 100;
+rects[139].y := 3;
+rects[139].width := 5;
+rects[139].height := 2;
+rects[140].x := 118;
+rects[140].y := 16;
+rects[140].width := 4;
+rects[140].height := 6;
+rects[141].x := 16;
+rects[141].y := 27;
+rects[141].width := 8;
+rects[141].height := 6;
+rects[142].x := 69;
+rects[142].y := 17;
+rects[142].width := 7;
+rects[142].height := 5;
+rects[143].x := 137;
+rects[143].y := 18;
+rects[143].width := 3;
+rects[143].height := 9;
+rects[144].x := 33;
+rects[144].y := 8;
+rects[144].width := 3;
+rects[144].height := 7;
+rects[145].x := 69;
+rects[145].y := 13;
+rects[145].width := 9;
+rects[145].height := 8;
+rects[146].x := 137;
+rects[146].y := 4;
+rects[146].width := 9;
+rects[146].height := 3;
+rects[147].x := 0;
+rects[147].y := 19;
+rects[147].width := 4;
+rects[147].height := 8;
+rects[148].x := 25;
+rects[148].y := 18;
+rects[148].width := 4;
+rects[148].height := 3;
+rects[149].x := 117;
+rects[149].y := 1;
+rects[149].width := 7;
+rects[149].height := 8;
+rects[150].x := 130;
+rects[150].y := 19;
+rects[150].width := 3;
+rects[150].height := 9;
+rects[151].x := 49;
+rects[151].y := 13;
+rects[151].width := 8;
+rects[151].height := 4;
+rects[152].x := 93;
+rects[152].y := 7;
+rects[152].width := 9;
+rects[152].height := 8;
+rects[153].x := 62;
+rects[153].y := 20;
+rects[153].width := 6;
+rects[153].height := 9;
+rects[154].x := 17;
+rects[154].y := 15;
+rects[154].width := 3;
+rects[154].height := 7;
+rects[155].x := 74;
+rects[155].y := 11;
+rects[155].width := 5;
+rects[155].height := 9;
+rects[156].x := 11;
+rects[156].y := 1;
+rects[156].width := 3;
+rects[156].height := 6;
+rects[157].x := 134;
+rects[157].y := 20;
+rects[157].width := 4;
+rects[157].height := 7;
+rects[158].x := 121;
+rects[158].y := 16;
+rects[158].width := 6;
+rects[158].height := 4;
+rects[159].x := 31;
+rects[159].y := 9;
+rects[159].width := 6;
+rects[159].height := 6;
+rects[160].x := 138;
+rects[160].y := 10;
+rects[160].width := 4;
+rects[160].height := 7;
+rects[161].x := 50;
+rects[161].y := 12;
+rects[161].width := 6;
+rects[161].height := 5;
+rects[162].x := 57;
+rects[162].y := 25;
+rects[162].width := 2;
+rects[162].height := 2;
+rects[163].x := 16;
+rects[163].y := 3;
+rects[163].width := 9;
+rects[163].height := 9;
+rects[164].x := 77;
+rects[164].y := 4;
+rects[164].width := 5;
+rects[164].height := 9;
+rects[165].x := 127;
+rects[165].y := 10;
+rects[165].width := 6;
+rects[165].height := 2;
+rects[166].x := 138;
+rects[166].y := 5;
+rects[166].width := 5;
+rects[166].height := 3;
+rects[167].x := 24;
+rects[167].y := 21;
+rects[167].width := 7;
+rects[167].height := 8;
+rects[168].x := 111;
+rects[168].y := 15;
+rects[168].width := 5;
+rects[168].height := 8;
+rects[169].x := 49;
+rects[169].y := 28;
+rects[169].width := 3;
+rects[169].height := 8;
+rects[170].x := 5;
+rects[170].y := 22;
+rects[170].width := 8;
+rects[170].height := 8;
+rects[171].x := 57;
+rects[171].y := 20;
+rects[171].width := 7;
+rects[171].height := 8;
+rects[172].x := 6;
+rects[172].y := 13;
+rects[172].width := 8;
+rects[172].height := 7;
+rects[173].x := 83;
+rects[173].y := 24;
+rects[173].width := 8;
+rects[173].height := 3;
+rects[174].x := 59;
+rects[174].y := 17;
+rects[174].width := 4;
+rects[174].height := 9;
+rects[175].x := 28;
+rects[175].y := 9;
+rects[175].width := 8;
+rects[175].height := 6;
+rects[176].x := 74;
+rects[176].y := 17;
+rects[176].width := 4;
+rects[176].height := 5;
+rects[177].x := 57;
+rects[177].y := 21;
+rects[177].width := 3;
+rects[177].height := 9;
+rects[178].x := 113;
+rects[178].y := 8;
+rects[178].width := 7;
+rects[178].height := 5;
+rects[179].x := 90;
+rects[179].y := 18;
+rects[179].width := 3;
+rects[179].height := 6;
+rects[180].x := 3;
+rects[180].y := 5;
+rects[180].width := 4;
+rects[180].height := 4;
+rects[181].x := 110;
+rects[181].y := 24;
+rects[181].width := 5;
+rects[181].height := 7;
+rects[182].x := 73;
+rects[182].y := 15;
+rects[182].width := 7;
+rects[182].height := 3;
+rects[183].x := 64;
+rects[183].y := 1;
+rects[183].width := 7;
+rects[183].height := 4;
+rects[184].x := 108;
+rects[184].y := 23;
+rects[184].width := 7;
+rects[184].height := 8;
+rects[185].x := 75;
+rects[185].y := 29;
+rects[185].width := 7;
+rects[185].height := 2;
+rects[186].x := 87;
+rects[186].y := 26;
+rects[186].width := 5;
+rects[186].height := 7;
+rects[187].x := 76;
+rects[187].y := 21;
+rects[187].width := 3;
+rects[187].height := 2;
+rects[188].x := 116;
+rects[188].y := 5;
+rects[188].width := 4;
+rects[188].height := 8;
+rects[189].x := 31;
+rects[189].y := 12;
+rects[189].width := 6;
+rects[189].height := 6;
+rects[190].x := 19;
+rects[190].y := 21;
+rects[190].width := 8;
+rects[190].height := 2;
+rects[191].x := 32;
+rects[191].y := 17;
+rects[191].width := 4;
+rects[191].height := 2;
+rects[192].x := 3;
+rects[192].y := 2;
+rects[192].width := 8;
+rects[192].height := 8;
+rects[193].x := 103;
+rects[193].y := 17;
+rects[193].width := 8;
+rects[193].height := 8;
+rects[194].x := 33;
+rects[194].y := 14;
+rects[194].width := 5;
+rects[194].height := 4;
+rects[195].x := 127;
+rects[195].y := 14;
+rects[195].width := 4;
+rects[195].height := 5;
+rects[196].x := 72;
+rects[196].y := 4;
+rects[196].width := 4;
+rects[196].height := 5;
+rects[197].x := 98;
+rects[197].y := 6;
+rects[197].width := 2;
+rects[197].height := 8;
+rects[198].x := 119;
+rects[198].y := 2;
+rects[198].width := 8;
+rects[198].height := 5;
+rects[199].x := 1;
+rects[199].y := 28;
+rects[199].width := 5;
+rects[199].height := 6;
+
+
+]]></ST>
+    </Implementation>
+    <LineIds Name="FB_initRects">
+      <LineId Id="10" Count="5" />
+      <LineId Id="40" Count="2" />
+      <LineId Id="44" Count="1" />
+      <LineId Id="43" Count="0" />
+      <LineId Id="16" Count="0" />
+      <LineId Id="46" Count="0" />
+      <LineId Id="48" Count="2" />
+      <LineId Id="47" Count="0" />
+      <LineId Id="51" Count="1" />
+      <LineId Id="58" Count="0" />
+      <LineId Id="62" Count="0" />
+      <LineId Id="53" Count="0" />
+      <LineId Id="55" Count="2" />
+      <LineId Id="134" Count="0" />
+      <LineId Id="65" Count="1" />
+      <LineId Id="72" Count="0" />
+      <LineId Id="75" Count="5" />
+      <LineId Id="86" Count="0" />
+      <LineId Id="88" Count="1" />
+      <LineId Id="91" Count="0" />
+      <LineId Id="90" Count="0" />
+      <LineId Id="73" Count="0" />
+      <LineId Id="135" Count="0" />
+      <LineId Id="92" Count="3" />
+      <LineId Id="97" Count="1" />
+      <LineId Id="104" Count="0" />
+      <LineId Id="106" Count="0" />
+      <LineId Id="105" Count="0" />
+      <LineId Id="100" Count="0" />
+      <LineId Id="102" Count="0" />
+      <LineId Id="101" Count="0" />
+      <LineId Id="1767" Count="799" />
+      <LineId Id="138" Count="0" />
+      <LineId Id="136" Count="0" />
+      <LineId Id="132" Count="0" />
+      <LineId Id="131" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

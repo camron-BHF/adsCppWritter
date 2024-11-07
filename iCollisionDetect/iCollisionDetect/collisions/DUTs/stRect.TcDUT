@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.13">
+  <DUT Name="stRect" Id="{d7027419-c5c7-435b-9964-7e2915938f52}">
+    <Declaration><![CDATA[TYPE stRect :
+STRUCT
+	x : REAL;
+	y : REAL;
+	width : REAL;
+	height : REAL;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>
