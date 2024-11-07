@@ -13,7 +13,7 @@
 		</System>
 		<Plc>
 			<Project GUID="{CA428EF8-F295-40C1-B9A8-33530E7D1622}" Name="collisions" PrjFilePath="collisions\collisions.plcproj" TmcFilePath="collisions\collisions.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{0A760402-379D-A670-9EBF-4E4E5DD45743}" TmcPath="collisions\collisions.tmc">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{B25634AC-BF00-1FA9-F7AF-4B3A4AD45F5B}" TmcPath="collisions\collisions.tmc">
 					<Name>collisions Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 					<Contexts>

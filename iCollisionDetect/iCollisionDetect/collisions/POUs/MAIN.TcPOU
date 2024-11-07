@@ -10,27 +10,31 @@ VAR
 	fbRects : FB_initRects;
 	bDone : BOOL := FALSE;
 	
-	collisionArray : ARRAY[0..29] OF BOOL;
+	collisionArray : ARRAY[0..numCircles] OF BOOL;
 	
-	objectArray : ARRAY[ 0..maxObjects] OF stRect;
+	servoArray : ARRAY[0..numCircles] OF stServo;
+	objArray : ARRAY[ 0..maxObjects] OF stObject;
 	
 	bTriggerCppCode: BOOL := FALSE;
 END_VAR
 
 VAR CONSTANT
 	maxObjects : INT := 300;
+	numCircles : INT := 29;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[
 //Initialize Tines(circles) and Rectangles(objects/plants)
-fbCollision.initCircles();
-fbRects(rects := objectArray);
+fbCollision.initCircles(circlesArray := servoArray);
+fbRects(rects := objArray);
 
 //Start timer
 Profiler(START := TRUE, RESET := FALSE);
+
 IF NOT bDone THEN
-	bTriggerCppCode := TRUE; //Should trigger the Cpp code
+// 	bTriggerCppCode := TRUE; (*Uncomment to run collision detection through CPP*)
+	fbCollision.getCollisions(collisionArray := collisionArray, rects := objArray, circles := servoArray); (*Uncomment to run collision detection in PLC*)
 END_IF
 
 //Stop timer and publish results to view
@@ -47,7 +51,11 @@ bDone := TRUE;
       <LineId Id="169" Count="0" />
       <LineId Id="263" Count="0" />
       <LineId Id="65" Count="0" />
-      <LineId Id="267" Count="3" />
+      <LineId Id="267" Count="0" />
+      <LineId Id="272" Count="0" />
+      <LineId Id="268" Count="1" />
+      <LineId Id="271" Count="0" />
+      <LineId Id="270" Count="0" />
       <LineId Id="265" Count="0" />
       <LineId Id="258" Count="1" />
       <LineId Id="253" Count="0" />

@@ -4,7 +4,7 @@
     <Declaration><![CDATA[FUNCTION_BLOCK FB_initRects
 
 VAR_IN_OUT
-	rects : ARRAY[0..maxObjects] OF stRect;
+	rects : ARRAY[0..maxObjects] OF stObject;
 END_VAR
 
 VAR CONSTANT
@@ -39,63 +39,7 @@ END_VAR
 
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[//CASE eReadState OF
-//	FILE_OPEN_TRIG : 
-//		fbFileOpen(bExecute := TRUE);
-//		eReadState := FILE_OPEN;
-	
-//	FILE_OPEN : 
-//		fbFileOpen(bExecute := FALSE);
-//		IF fbFileOpen.bError THEN
-//			eReadState := ERROR;
-//		ELSIF NOT fbFileOpen.bBusy AND fbFileOpen.hFile <> 0 THEN
-//			eReadState := WAIT;
-//		END_IF
-		
-//	WAIT:
-//		IF NOT fbFileGets.bBusy THEN
-//			eReadState := READ_TRIG;
-//		END_IF
-		
-//	READ_TRIG : 
-//		fbFileGets(bExecute := TRUE,
-//					hFile := fbFileOpen.hFile,
-//					sLine => sLine1);
-//		eReadState := READ;
-	
-//	READ :
-//		fbFileGets(bExecute := FALSE);
-////		sLine1 := '15,2,4,2$N';
-		
-//		IF sLine1 <> '' THEN
-//			sLineArr := F_SplitString(sInput := sLine1, sSplitChar := ',');
-//			rects[j].x := STRING_TO_REAL(sLineArr[0]);
-//			rects[j].y := STRING_TO_REAL(sLineArr[1]);
-//			rects[j].width := STRING_TO_REAL(sLineArr[2]);
-//			rects[j].height := STRING_TO_REAL(sLineArr[3]);
-//			j := j + 1;
-			
-//			IF fbFileGets.bEOF THEN
-//				eReadState := CLOSE;
-//			ELSE
-//				eReadState := WAIT;
-//			END_IF
-//		END_IF
-////		eReadState := DONE;
-		
-//	CLOSE:
-//		fbFileClose(hFile := fbFileOpen.hFile,
-//					bExecute := TRUE);
-//		eReadState := DONE;
-		
-//	ERROR:
-////	Do nothing (Haven't figured out the error handling sequency yet)
-	
-//	DONE:
-////	Do nothing
-	
-
-rects[0].x := 43;
+      <ST><![CDATA[rects[0].x := 43;
 rects[0].y := 16;
 rects[0].width := 3;
 rects[0].height := 5;
@@ -900,38 +844,7 @@ rects[199].height := 6;
 ]]></ST>
     </Implementation>
     <LineIds Name="FB_initRects">
-      <LineId Id="10" Count="5" />
-      <LineId Id="40" Count="2" />
-      <LineId Id="44" Count="1" />
-      <LineId Id="43" Count="0" />
-      <LineId Id="16" Count="0" />
-      <LineId Id="46" Count="0" />
-      <LineId Id="48" Count="2" />
-      <LineId Id="47" Count="0" />
-      <LineId Id="51" Count="1" />
-      <LineId Id="58" Count="0" />
-      <LineId Id="62" Count="0" />
-      <LineId Id="53" Count="0" />
-      <LineId Id="55" Count="2" />
-      <LineId Id="134" Count="0" />
-      <LineId Id="65" Count="1" />
-      <LineId Id="72" Count="0" />
-      <LineId Id="75" Count="5" />
-      <LineId Id="86" Count="0" />
-      <LineId Id="88" Count="1" />
-      <LineId Id="91" Count="0" />
-      <LineId Id="90" Count="0" />
-      <LineId Id="73" Count="0" />
-      <LineId Id="135" Count="0" />
-      <LineId Id="92" Count="3" />
-      <LineId Id="97" Count="1" />
-      <LineId Id="104" Count="0" />
-      <LineId Id="106" Count="0" />
-      <LineId Id="105" Count="0" />
-      <LineId Id="100" Count="0" />
-      <LineId Id="102" Count="0" />
-      <LineId Id="101" Count="0" />
-      <LineId Id="1767" Count="799" />
+      <LineId Id="1768" Count="798" />
       <LineId Id="138" Count="0" />
       <LineId Id="136" Count="0" />
       <LineId Id="132" Count="0" />

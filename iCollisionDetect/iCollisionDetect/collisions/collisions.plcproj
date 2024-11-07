@@ -18,10 +18,10 @@
     <LibraryReferences>{fa143886-c77c-4b26-bcf9-0b071ec28fa9}</LibraryReferences>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="DUTs\stCircle.TcDUT">
+    <Compile Include="DUTs\stServo.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DUTs\stRect.TcDUT">
+    <Compile Include="DUTs\stObject.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PlcTask.TcTTO">
