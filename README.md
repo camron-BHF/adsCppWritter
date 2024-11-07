@@ -8,9 +8,9 @@ Compile & usage
 ===============
 ```shell
 # clone the repository
-git clone https://github.com/Beckhoff/ADS.git
+git clone https://github.com/camron-BHF/adsCppWritter.git
 # change into root of the cloned repository
-cd ADS
+cd adsCppWritter
 # configure meson to build the library into "build" dir
 meson setup build
 # let ninja build the library
